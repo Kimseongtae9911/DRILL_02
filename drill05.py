@@ -1,38 +1,38 @@
-import turtle as tur
-import sys
+import turtle
 
-tur.Turtle()
-tur.shape("turtle")
-screen = tur.getscreen()
+turtle.shape("turtle")
+
 
 def up():
-    tur.seth(90)
-    tur.forward(50)
+    turtle.setheading(90)
+    turtle.forward(50)
+    turtle.stamp()
 
 def down():
-    tur.seth(270)
-    tur.forward(50)
+    turtle.setheading(270)
+    turtle.forward(50)
+    turtle.stamp()
 
 def left():
-    tur.seth(180)
-    tur.forward(50)
+    turtle.setheading(180)
+    turtle.forward(50)
+    turtle.stamp()
 
 def right():
-    tur.seth(0)
-    tur.forward(50)
-
-def endProgram():
-    sys.exit()
+    turtle.setheading(0)
+    turtle.forward(50)
+    turtle.stamp()
 
 def reset():
-    tur.reset()
+    turtle.reset()
 
-screen.onkeypress(up, "w")
-screen.onkeypress(down, "s")
-screen.onkeypress(left, "a")
-screen.onkeypress(right, "d")
-screen.onkeypress(endProgram, "q")
-screen.onkeypress(reset, 'Escape')
 
-screen.listen()
-screen.mainloop()
+turtle.onkey(up, 'w')
+turtle.onkey(down, 's')
+turtle.onkey(left, 'a')
+turtle.onkey(right, 'd')
+turtle.onkey(reset, 'Escape')
+
+turtle.listen()
+
+    
