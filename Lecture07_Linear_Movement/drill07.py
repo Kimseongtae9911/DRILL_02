@@ -1,11 +1,13 @@
 import random
 from pico2d import *
 
+KPU_WIDTH, KPU_HEIGHT = 1280, 1024
+
 def hand_pos():
     global handx
     global handy
-    handx = random.randint(100, 700)
-    handy = random.randint(100, 600)
+    handx = random.randint(100, 1180)
+    handy = random.randint(100, 924)
 
 def handle_events():
     global running
@@ -23,29 +25,41 @@ def move_character():
     global dir2
     global x
     global y
-    if x > handx:
+
+    if x > handx and y > handy:
         dir = -1
         dir2 = -1
+        incline = (y - handy) / (x - handx)
         x -= 1
-    elif x < handx:
+        y -= incline
+    elif x > handx and y < handy:
+        dir = -1
+        dir2 = -1
+        incline = (y - handy) / (x - handx)
+        x -= 1
+        y -= incline
+    elif x < handx and y < handy:
         dir = 1
         dir2 = 1
+        incline = (y - handy) / (x - handx)
         x += 1
-    elif y < handy:
-        y += 1
-    elif y > handy:
-        y -= 1
+        y += incline
+    elif x < handx and y > handy:
+        dir = 1
+        dir2 = 1
+        incline = (y - handy) / (x - handx)
+        x += 1
+        y += incline
 
-open_canvas()
-grass = load_image('grass.png')
+open_canvas(KPU_WIDTH, KPU_HEIGHT)
+kpu_ground = load_image('KPU_GROUND.png')
 character = load_image('animation_sheet.png')
 hand_arrow = load_image('hand_arrow.png')
 
 running = True
 handx = random.randint(100, 700)
 handy = random.randint(100, 600)
-x = 800 // 2
-y = 90
+x, y = KPU_WIDTH // 2, KPU_HEIGHT // 2
 frame = 0
 dir = 0 # -1 left, +1 right
 dir2 = 0 # -1 left, +1 right
@@ -56,7 +70,7 @@ while running:
 
     move_character()
     clear_canvas()
-    grass.draw(400, 30)
+    kpu_ground.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
     hand_arrow.draw(handx, handy)
     if dir == 1:
         character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
