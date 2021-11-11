@@ -82,7 +82,6 @@ class IdleState:
         else:
             boy.image.clip_draw(boy.frame * 100, 200, 100, 100, boy.x, boy.y)
 
-
 class RunState:
 
     def enter(boy, event):
@@ -112,7 +111,6 @@ class RunState:
             boy.image.clip_draw(boy.frame * 100, 100, 100, 100, boy.x, boy.y)
         else:
             boy.image.clip_draw(boy.frame * 100, 0, 100, 100, boy.x, boy.y)
-
 
 class SleepState:
 
@@ -146,7 +144,6 @@ next_state_table = {
 
 
 class Boy:
-
     def __init__(self):
         self.x, self.y = 1600 // 2, 90
         self.image = load_image('animation_sheet.png')
