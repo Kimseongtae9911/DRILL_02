@@ -8,12 +8,14 @@ import game_world
 
 from boy import Boy
 from grass import Grass
+from bird import Bird
 from ball import Ball
 
 name = "MainState"
 
 boy = None
 grass = None
+bird = []
 balls = []
 big_balls = []
 
@@ -34,6 +36,10 @@ def enter():
     grass = Grass()
     game_world.add_object(grass, 0)
 
+    global bird
+    for i in range(5):
+        bird = Bird()
+        game_world.add_object(bird, 1)
     # fill here for balls
 
 
