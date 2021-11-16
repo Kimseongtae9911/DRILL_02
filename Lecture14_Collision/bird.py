@@ -87,11 +87,15 @@ class Bird:
         if Bird.image == None:
             Bird.image = load_image('bird100x100x14.png')
         self.font = load_font('ENCR10B.TTF', 16)
-        self.dir = 1
+        self.dir = random.randint(-1, 1)
         self.velocity = 0
         self.frame = 0
         self.event_que = []
-        self.cur_state = FLYRState
+        self.fly_dir = random.randint(0, 1)
+        if self.fly_dir == 0:
+            self.cur_state = FLYRState
+        else:
+            self.cur_state = FLYLState
         self.cur_state.enter(self, None)
 
     def add_event(self, event):
