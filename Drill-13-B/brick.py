@@ -5,7 +5,6 @@ from pico2d import *
 import game_framework
 import game_world
 
-
 class Brick:
 
     def __init__(self, center=300, y=100):
@@ -16,6 +15,7 @@ class Brick:
 
     def update(self):
         self.x += game_framework.frame_time * self.speed
+
         if self.x >= self.right_wall:
             self.speed = random.randint(100,250) * random.choice([-1,1])
             self.x = self.right_wall
@@ -23,8 +23,10 @@ class Brick:
             self.speed = random.randint(100,250) * random.choice([-1,1])
             self.x = self.left_wall
 
+
     def draw(self):
         self.image.draw(self.x, self.y)
+        self.draw_bb()
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
@@ -32,3 +34,6 @@ class Brick:
 
     def get_bb(self):
         return self.x-90, self.y-20, self.x+90, self.y+20
+
+    def get_speed(self):
+        return self.speed

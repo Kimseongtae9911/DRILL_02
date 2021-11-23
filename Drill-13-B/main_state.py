@@ -81,6 +81,19 @@ def update():
             balls.remove(ball)
             game_world.remove_object(ball)
 
+    for brick in bricks:
+        if collide(boy, brick):
+            tleft, tbottom, tright, ttop = brick.get_bb()
+            bleft, bbottom, bright, btop = boy.get_bb()
+            brick_speed = brick.get_speed()
+            boy.y = ttop + 30
+            boy.x += brick_speed * game_framework.frame_time
+            print(boy.x)
+            print(tright)
+            if bright >= tright:
+                boy.x = tright - 30
+            elif bleft <= tleft:
+                boy.x = tleft + 30
 
 def draw():
     clear_canvas()
