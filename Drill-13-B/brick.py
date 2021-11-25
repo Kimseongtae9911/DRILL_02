@@ -4,8 +4,13 @@ from pico2d import *
 
 import game_framework
 import game_world
+import collision
+import server
 
 class Brick:
+
+    BOY_X0 = -50
+    BOY_Y0 = 50
 
     def __init__(self, center=300, y=100):
         self.image = load_image('brick180x40.png')

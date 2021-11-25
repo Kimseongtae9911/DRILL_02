@@ -3,6 +3,8 @@ from pico2d import *
 from ball import Ball
 
 import game_world
+import collision
+import server
 
 # Boy Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
@@ -134,6 +136,7 @@ class Boy:
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
+        self.parent = None
 
     def get_bb(self):
         # fill here
@@ -157,6 +160,14 @@ class Boy:
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self, event)
 
+        if self.parent:
+            self.x += self.parent.speed * game_framework.frame_time
+            self.x = clamp(self.parent.x - 90, self.x, self.parent.x + 90)
+
+        for brick in server.bricks:
+            if collision.collide(self, brick):
+                self.set_parent(brick)
+                break
 
     def draw(self):
         self.cur_state.draw(self)
@@ -169,3 +180,8 @@ class Boy:
             key_event = key_event_table[(event.type, event.key)]
             self.add_event(key_event)
 
+
+    def set_parent(self, brick):
+        if self.parent != brick:
+            self.parent = brick
+            self.x, self.y = brick.x + brick.BOY_X0, brick.y + brick.BOY_Y0
