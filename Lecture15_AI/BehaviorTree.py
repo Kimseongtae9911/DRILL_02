@@ -38,7 +38,7 @@ class SelectorNode(Node):
     def __init__(self, name):
         self.children = []
         self.name = name
-        self.prev_running_pos = 0
+        self.prev_running_pos = 0  # 앞선 실행에서, RUNNING 으로 리턴한 자식 노드 위치를 저장
 
     def run(self):
         for pos in range(self.prev_running_pos, len(self.children)):
